@@ -1,7 +1,7 @@
-module LoginHelper
+module LoginHelper 
   extend Capybara::DSL
 
-  class << self
+  class << self 
     def login
       visit Config.get_value(:dashboard_url) 
       sleep(5)
@@ -12,7 +12,6 @@ module LoginHelper
         fill_in 'password', with: pass
         find("input.btn.btn-primary.submitButton-customizable").click
       end
-      #find("input.btn.btn-primary.submitButton-customizable").click
     end
   end
 end
