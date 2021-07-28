@@ -1,4 +1,3 @@
-require 'byebug'
 require_relative '../../pages/LoginHelper.rb'
 describe 'Login Process' do
   context "when user log in" do
