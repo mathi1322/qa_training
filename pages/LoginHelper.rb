@@ -1,4 +1,4 @@
-class LoginPage < SitePrism::Page
+class LoginHelper < SitePrism::Page
   set_url 'https://explorer.stage.lfmprod.in/#dashboard/start'
   element :user_name_elem, '#signInFormUsername'
   element :password_elem, '#signInFormPassword'

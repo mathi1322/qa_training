@@ -1,32 +1,35 @@
-# class RowContent < SitePrism::Section
-#   element :label, 'span.title-span'
-
-#   def brand_title
-#     label.text
-#   end
-
 class BrandList < SitePrism::Page
   set_url 'https://explorer.stage.lfmprod.in/#dashboard/start'
+	element :user_name_elem, '#signInFormUsername'
+	element :password_elem, '#signInFormPassword'
+	element :sign_in_button, 'input.btn.btn-primary.submitButton-customizable'
+	element :menu, 'div.menu-grid'
 	element :brandlist, 'tbody'
-	element :label, 'div.dataTables_info'
+	element :number, 'div.dataTables_info'
 	element :search, 'input.form-control'
   
- # sections : rows, RowContent 'td.brand-metadata'
+	def login(mail, pass)
+		user_name_elem.set(mail)
+		password_elem.set(pass)
+		sign_in_button.click
+		sleep 30
+  end
+  
+	def click_item(name)
+		item = menu.find_all('div.menu-item').find{|x| x.find('div.item-label').text == name }
+		item.click
+  end
   
   def brand?(name)
 	  brandlist.find_all('td.brand-metadata').any?{|x| x.find('span.title-span').text == name }
   end
 
-  def title
-    rows.map{|x| x.brand_title}
-  end
-
   def total_count
-    label.text.gsub(/SHOWING (\d+) OF (\d+) BRANDS/, '/2')
+    number.text.gsub(/[^\d]/, '')[1].to_i
   end
 
   def display_count
-    label.text.gsub(/[^\d]/, '')[0].to_i
+    number.text.gsub(/[^\d]/, '')[0].to_i
   end
 
   def title_count
@@ -40,9 +43,15 @@ class BrandList < SitePrism::Page
   def clear_filter
     search.set('')
   end
+  def title
+    brandlist.find('span.title-span').text
+  end
 
-  # def title
-  #   brandlist.find('span.title-span').text
-  # end
+  def fangrowth_data
+    total_fangrowth = find_all('div.brand-metrics')[0]['data-sortvalue'].to_i
+    brand_fangrowth = find_all('td.metric.public_fan_acquisition_score.dcr-info-view-hover div.brand-metrics')
+    fangrowth_sum = brand_fangrowth.map{ |x| x['data-sortvalue'].to_i }.reduce(:+)
+    total_fangrowth == fangrowth_sum
+ end
 
 end
