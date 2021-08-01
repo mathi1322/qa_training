@@ -5,8 +5,6 @@
 #     label.text
 #   end
 
-end
-
 class BrandList < SitePrism::Page
   set_url 'https://explorer.stage.lfmprod.in/#dashboard/start'
 	element :brandlist, 'tbody'
