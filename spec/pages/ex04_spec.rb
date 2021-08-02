@@ -4,7 +4,7 @@ require_relative '../../pages/BrandList.rb'
 
 describe 'Brand listing' do
   context "verifying the aggregate row value matches the listing brands" do
-    it 'returns true', type: :feature do
+    it 'returns true', case: 'ex04_1' do
       dashboard_url = 'https://explorer.stage.lfmprod.in/#dashboard/start'
       sign_in = LoginHelper.new
       sign_in.load
