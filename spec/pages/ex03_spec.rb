@@ -4,7 +4,7 @@ require_relative '../../pages/BrandList.rb'
 
 describe 'Brand listing' do
   context "Filter a brand" do
-    it 'expected the filter brand', type: :feature do
+    it 'expected the filter brand', case: 'ex03_1' do
       dashboard_url = 'https://explorer.stage.lfmprod.in/#dashboard/start'
       sign_in = LoginHelper.new
       sign_in.load
